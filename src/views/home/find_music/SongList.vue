@@ -1,5 +1,7 @@
 <template>
-$END$
+<div class="song_list">
+  <h2>歌单</h2>
+</div>
 </template>
 
 <script>

@@ -1,10 +1,12 @@
 <template>
-$END$
+  <div class="market">
+    <h2>商场</h2>
+  </div>
 </template>
 
 <script>
 export default {
-name: "Market"
+  name: "Market"
 }
 </script>
 

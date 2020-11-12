@@ -1,5 +1,7 @@
 <template>
-$END$
+<div class="singer">
+  <h2>歌手</h2>
+</div>
 </template>
 
 <script>

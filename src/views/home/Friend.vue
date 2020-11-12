@@ -1,5 +1,7 @@
 <template>
-$END$
+<div class="friend">
+  <h2>朋友</h2>
+</div>
 </template>
 
 <script>
