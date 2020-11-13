@@ -31,8 +31,7 @@ export default {
 .new_disc {
   background-color: #f5f5f5;
   display: flex;
-  border: 1px solid gray;
-  padding: 30px 40px;
-  margin-top: 20px;
+  align-content: space-between;
+  width: 100%;
 }
 </style>

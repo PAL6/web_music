@@ -223,6 +223,7 @@ export default {
 }
 
 .pre {
+  cursor: pointer;
   font-size: 50px;
   position: absolute;
   z-index: 1000;
@@ -232,6 +233,7 @@ export default {
 }
 
 .next {
+  cursor: pointer;
   font-size: 50px;
   position: absolute;
   z-index: 1000;
@@ -280,7 +282,9 @@ export default {
 
 .new_disc1 {
   overflow: hidden;
-  border-right: 1px solid transparent;
+  padding: 30px 40px;
+  margin-top: 20px;
+  border: 1px solid #8c8c8c;
   margin-bottom: 0;
   position: relative;
 }
@@ -290,7 +294,7 @@ export default {
   position: absolute;
   left: 10px;
   font-size: 30px;
-  top: 130px;
+  top: 110px;
   z-index: 1000;
   cursor: pointer;
 }
@@ -299,7 +303,7 @@ export default {
   position: absolute;
   right: 10px;
   font-size: 30px;
-  top: 130px;
+  top: 110px;
   cursor: pointer;
   z-index: 1000;
 }

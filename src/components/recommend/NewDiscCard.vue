@@ -34,12 +34,12 @@ export default {
 .disc_card {
   cursor: pointer;
   margin: 10px;
-  width: 118px;
+  width: 100px;
 }
 
 .disc_card img {
   height: 100px;
-  width: 100%;
+  width: 100px;
 }
 
 .disc_name {
