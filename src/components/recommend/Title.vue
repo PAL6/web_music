@@ -1,8 +1,8 @@
 <template>
   <div class="title">
-    <van-icon name="award-o" class="icon"/>
+    <slot name = "icon"></slot>
     <span class="type">{{ title }}</span>
-    <slot v-slot="nav"></slot>
+    <slot name="nav"></slot>
     <div class="more">
       <a href="#">更多</a>
       <van-icon name="other-pay" class="more_icon"/>

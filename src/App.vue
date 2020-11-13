@@ -31,12 +31,17 @@
       </div>
     </div>
     <router-view/>
+    <Footer></Footer>
   </div>
 </template>
 
 <!--逻辑-->
 <script>
+import Footer from "@/components/Footer";
 export default {
+  components:{
+    Footer
+  },
   data() {
     return {
       value: ''

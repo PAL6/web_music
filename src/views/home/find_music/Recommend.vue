@@ -12,9 +12,10 @@
               class="my_swiper_box"
               indicator-color="#c20c0c"
               :autoplay="4000"
-              ref="swiper">
+              ref="swiper"
+          >
             <van-swipe-item v-for="(image, index) in bannerList" :key="index">
-              <img :src="image.imageUrl" alt="" class="pic">
+              <img :src="image.imageUrl" alt="" class="pic"/>
             </van-swipe-item>
           </van-swipe>
         </div>
@@ -25,34 +26,58 @@
       <div class="content">
         <!--左边歌单内容-->
         <div class="left_box">
-          <Title></Title>
+          <Title>
+            <van-icon name="award-o" class="icon" slot="icon"/>
+          </Title>
           <div class="rem">
-            <MusicCard v-for="(item,index) in remList" :key="item.id" :music-info="item"
-                       :class="'not'+index"></MusicCard>
+            <MusicCard
+                v-for="(item, index) in remList"
+                :key="item.id"
+                :music-info="item"
+                :class="'not' + index"
+            ></MusicCard>
           </div>
-          <Title title="新碟上架"></Title>
+          <Title title="新碟上架">
+            <van-icon name="award-o" class="icon" slot="icon"/>
+          </Title>
           <div class="new_disc1">
             <span class="disc_pre" @click="discPre"><</span>
             <span class="disc_next" @click="discNext">></span>
             <van-swipe indicator-color="white" ref="disc_swiper">
               <van-swipe-item>
-                <DiscSwipeItem :list="disc.list1" @discId="discId"></DiscSwipeItem>
+                <DiscSwipeItem
+                    :list="disc.list1"
+                    @discId="discId"
+                ></DiscSwipeItem>
               </van-swipe-item>
               <van-swipe-item>
-                <DiscSwipeItem :list="disc.list2" @discId="discId"></DiscSwipeItem>
+                <DiscSwipeItem
+                    :list="disc.list2"
+                    @discId="discId"
+                ></DiscSwipeItem>
               </van-swipe-item>
             </van-swipe>
           </div>
-          <Title title="榜单"></Title>
+          <Title title="榜单" @click="pushToRank">
+            <van-icon name="award-o" class="icon" slot="icon"/>
+          </Title>
           <div class="rank">
-            <span @click="pushToRank">榜单</span>
+            <RankBox
+                v-for="(item, index) in rankList"
+                :title="item.name"
+                :picUrl="item.coverImgUrl"
+                :hotTen="tenMusic[index]"
+                :key="item.name"
+            />
           </div>
         </div>
         <!--右边主播电台-->
         <div class="right_box">
           <!--登录-->
           <div class="login_introduce">
-            <span>登录网易云音乐，可以享受无限收藏的乐趣，并且无限同步到手机</span>
+            <span
+            >登录网易云音乐，可以享受无限收藏的乐趣，并且无限同步到手机</span
+            >
             <a href="#">用户登录</a>
           </div>
           <!--歌手-->
@@ -65,6 +90,21 @@
               <ul>
                 <li v-for="item in hotSinger" :key="item.id">
                   <SingerCard :singer="item"></SingerCard>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <van-button plain type="info" class="music_per" color="#8c8c8c">申请成为网易音乐人</van-button>
+
+          <div class="singer">
+            <div class="singer_header">
+              <span>热门主播</span>
+            </div>
+            <div class="singer_box">
+              <ul>
+                <li v-for="item in hotFiveDj" :key="item.id">
+                  <DjCard :dj="item"></DjCard>
                 </li>
               </ul>
             </div>
@@ -82,6 +122,8 @@ import MusicCard from "@/components/home/MusicCard";
 import SingerCard from "@/components/recommend/SingerCard";
 import NewDiscCard from "@/components/recommend/NewDiscCard";
 import DiscSwipeItem from "@/components/recommend/DiscSwipeItem";
+import RankBox from "@/components/recommend/RankBox";
+import DjCard from "@/components/recommend/DjCard";
 
 export default {
   name: "Recommend",
@@ -90,7 +132,9 @@ export default {
     MusicCard,
     SingerCard,
     NewDiscCard,
-    DiscSwipeItem
+    DiscSwipeItem,
+    RankBox,
+    DjCard
   },
   data() {
     return {
@@ -98,94 +142,144 @@ export default {
       remList: [],
       hotSinger: [],
       disc: {
-        'list1': [],
-        'list2': []
+        list1: [],
+        list2: [],
       },
       backTop: false,
-    }
+      rankList: [],
+      tenMusic: [],
+      hotFiveDj:[]
+    };
   },
   created() {
     this.getBanner();
     this.getRem();
     this.getHotSinger();
-    this.getDisc()
+    this.getDisc();
+    this.getRankList();
+    this.getDj();
   },
   methods: {
     getBanner() {
-      getMethod('/banner').then(res => {
-        console.log(res.data.banners);
-        this.bannerList = res.data.banners;
-      }).catch(err => {
-        console.log(err);
-      })
+      getMethod("/banner")
+          .then((res) => {
+            console.log(res.data.banners);
+            this.bannerList = res.data.banners;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
     },
     getRem() {
-      getMethod('/personalized', {
-        'limit': 8
-      }).then(res => {
-        this.remList = res.data.result
-      }).catch(err => {
-        console.log(err);
+      getMethod("/personalized", {
+        limit: 8,
       })
+          .then((res) => {
+            this.remList = res.data.result;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
     },
     getHotSinger() {
-      getMethod('/artist/list', {
-        'type': -1,
-        'area': -1,
-        'initial': -1,
-        'offset': 1,
-        'limit': 5
-      }).then(res => {
-        this.hotSinger = res.data.artists;
-      }).catch(err => {
-        console.log(err);
+      getMethod("/artist/list", {
+        type: -1,
+        area: -1,
+        initial: -1,
+        offset: 1,
+        limit: 5,
       })
+          .then((res) => {
+            this.hotSinger = res.data.artists;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
     },
     getDisc() {
-      getMethod('/album/new', {
-        'limit': 10,
+      getMethod("/album/new", {
+        limit: 10,
+      })
+          .then((res) => {
+            console.log(res.data.albums);
+            this.disc.list1 = res.data.albums.slice(0, 5);
+            this.disc.list2 = res.data.albums.slice(5, 10);
+            console.log(this.disc.list2);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    },
+    getRankList() {
+      getMethod("/toplist")
+          .then((res) => {
+            this.rankList = res.data.list.slice(0, 3);
+            console.log(this.rankList);
+            this.getTenHotMusic();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    },
+    getTenHotMusic() {
+      for (let i = 0; i < this.rankList.length; i++) {
+        console.log(this.rankList[i].id);
+        getMethod("/playlist/detail", {
+          id: this.rankList[i].id,
+        })
+            .then((res) => {
+              this.tenMusic.push(res.data.playlist.tracks.slice(0, 10));
+              console.log(this.tenMusic);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+      }
+    },
+    getDj() {
+      getMethod('/dj/toplist', {
+        type: 'new',
+        limit: 5,
+        offset: -1
       }).then(res => {
-        console.log(res.data.albums)
-        this.disc.list1 = res.data.albums.slice(0, 5);
-        this.disc.list2 = res.data.albums.slice(5, 10);
-        console.log(this.disc.list2)
+           this.hotFiveDj = res.data.toplist.slice(0,5)
       }).catch(err => {
         console.log(err)
       })
     },
     //轮播图上一张
     pre() {
-      this.$refs.swiper.prev()
+      this.$refs.swiper.prev();
     },
     discPre() {
-      this.$refs.disc_swiper.prev()
+      this.$refs.disc_swiper.prev();
     },
     //轮播图下一张
     next() {
-      this.$refs.swiper.next()
+      this.$refs.swiper.next();
     },
     discNext() {
-      this.$refs.disc_swiper.next()
+      this.$refs.disc_swiper.next();
     },
     discId(query) {
-      console.log(query)
+      console.log(query);
     },
     handleScroll() {
-      let scrollY = document.documentElement.scrollTop
+      let scrollY = document.documentElement.scrollTop;
       if (scrollY > 100) {
         this.backTop = true;
       } else {
         this.backTop = false;
       }
     },
-    pushToRank(){
-      this.$router.push('/rank');
-    }
+    pushToRank() {
+      this.$router.push("/rank");
+    },
   },
   mounted() {
-    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll);
   },
-}
+};
 </script>
 
 <style scoped>
@@ -264,7 +358,8 @@ export default {
   margin: 0 auto;
   display: flex;
   border: 1px solid #cccccc;
-  border-top: 0px;
+  border-bottom: 0;
+  border-top: 0;
 }
 
 .left_box {
@@ -289,7 +384,6 @@ export default {
   position: relative;
 }
 
-
 .disc_pre {
   position: absolute;
   left: 10px;
@@ -308,7 +402,8 @@ export default {
   z-index: 1000;
 }
 
-.not3, .not7 {
+.not3,
+.not7 {
   margin-right: 0 !important;
 }
 
@@ -386,7 +481,20 @@ export default {
 }
 
 .rank {
-  height: 300px;
-  background-color: #c20c0c;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  display: flex;
+  border: 1px solid #8c8c8c;
+  border-right: 0;
+}
+
+.icon {
+  margin-right: 10px;
+  font-size: 20px;
+  color: #c20c0c;
+}
+.music_per{
+  width: calc(100% - 40px);
+  margin: 0 20px;
 }
 </style>
