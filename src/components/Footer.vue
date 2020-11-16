@@ -16,6 +16,7 @@ name: "Footer"
 .footer{
   width: 100%;
   height: 200px;
+  min-width: 1220px;
   border-top: 1px #8c8c8c solid;
   background-color: #f2f2f2;
 }

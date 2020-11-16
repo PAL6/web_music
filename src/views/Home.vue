@@ -47,7 +47,7 @@ export default {
 .nav {
   height: 34px;
   width: 100%;
-  min-width: 1100px;
+  min-width: 1220px;
   background-color: #c20c0c;
 }
 

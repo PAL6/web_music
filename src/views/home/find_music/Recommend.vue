@@ -284,9 +284,9 @@ export default {
 
 <style scoped>
 .all {
-  width: 1000px;
+  width: 100%;
   margin: 0 auto;
-  min-width: 1000px;
+  min-width: 1220px;
   position: relative;
 }
 

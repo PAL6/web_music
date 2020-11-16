@@ -59,15 +59,18 @@ export default {
   line-height: 70px;
   background-color: #242424;
   width: 100%;
-  min-width: 1100px;
+  min-width: 1220px;
 }
 
 .nav1 {
   display: flex;
+  justify-items: center;
+  align-content: center;
   height: 70px;
+  width: 1220px;
   line-height: 70px;
   background-color: #242424;
-  min-width: 1100px;
+  min-width: 1220px;
   margin: 0 auto;
 }
 
