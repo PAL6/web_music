@@ -279,6 +279,7 @@ export default {
     handleScroll() {
       let scrollY = document.documentElement.scrollTop;
       if (scrollY > 100) {
+          console.log('llm')
         this.backTop = true;
       } else {
         this.backTop = false;
