@@ -52,7 +52,7 @@ export default {
 }
 
 .nav1 {
-  padding-left: 185px;
+  padding-left: 55px;
   width: 915px;
   height: 100%;
   margin: 0 auto;

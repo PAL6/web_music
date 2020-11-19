@@ -8,7 +8,7 @@
         <van-icon name="cross" class="close" @click="isShowMenu = false"/>
         <div class="list">
           <ul>
-            <li v-for="item in infoList">
+            <li v-for="(item,index) in infoList" :class="index===$store.state.index?'activeMusic':''">
               {{ item.name }}
             </li>
           </ul>
@@ -23,7 +23,7 @@
           controls
           autoplay
           :loop="isLoop"
-          @ended="end"></audio>
+          @ended="onEnd"></audio>
       <van-icon name="column" class="musicMenu" @click="toggleMenu"/>
     </div>
   </div>
@@ -52,13 +52,15 @@ export default {
   },
   data() {
     return {
-      isLoop: true,
+      isLoop: false,
       isShowMenu:false
     }
   },
   methods: {
-    end() {
-     this.$store.commit('next');
+    onEnd() {
+      console.log('下一首');
+      this.$store.commit('next');
+      this.$store.commit('musicName');
     },
     toggleMenu(){
       this.isShowMenu =! this.isShowMenu;
@@ -172,5 +174,8 @@ export default {
   margin: 10px;
   font-size: 20px;
   text-align: right;
+}
+.activeMusic{
+  background-color: #ed6a0c;
 }
 </style>

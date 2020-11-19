@@ -8,8 +8,14 @@ import './assets/css/base.css'
 //使用vant组件库
 import Vant from 'vant';
 import 'vant/lib/index.css';
+
 Vue.use(Vant)
 
+//使用ElementUI库
+import {Button} from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+Vue.use(Button)
 Vue.config.productionTip = false
 
 new Vue({
