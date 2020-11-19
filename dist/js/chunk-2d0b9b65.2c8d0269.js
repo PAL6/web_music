@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0b9b65"],{"33b1":function(t,n,e){"use strict";e.r(n);var s=function(){var t=this,n=t.$createElement;t._self._c;return t._m(0)},a=[function(){var t=this,n=t.$createElement,e=t._self._c||n;return e("div",{staticClass:"host_station"},[e("h2",[t._v("主播电台")])])}],c={name:"HostStation"},i=c,o=e("2877"),r=Object(o["a"])(i,s,a,!1,null,"28051d72",null);n["default"]=r.exports}}]);
+//# sourceMappingURL=chunk-2d0b9b65.2c8d0269.js.map
