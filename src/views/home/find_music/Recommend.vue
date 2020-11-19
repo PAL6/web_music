@@ -26,7 +26,7 @@
       <div class="content">
         <!--左边歌单内容-->
         <div class="left_box">
-          <Title>
+          <Title title="热门推荐">
             <van-icon name="award-o" class="icon" slot="icon"/>
           </Title>
           <div class="rem">
@@ -68,6 +68,8 @@
                 :picUrl="item.coverImgUrl"
                 :hotTen="tenMusic[index]"
                 :key="item.name"
+                @play="playList(tenMusic[index])"
+                @index="indexChange"
             />
           </div>
         </div>
@@ -148,7 +150,8 @@ export default {
       backTop: false,
       rankList: [],
       tenMusic: [],
-      hotFiveDj:[]
+      hotFiveDj: [],
+      play:[]
     };
   },
   created() {
@@ -160,6 +163,7 @@ export default {
     this.getDj();
   },
   methods: {
+    //获取轮播图
     getBanner() {
       getMethod("/banner")
           .then((res) => {
@@ -170,6 +174,7 @@ export default {
             console.log(err);
           });
     },
+    //获取热门推荐
     getRem() {
       getMethod("/personalized", {
         limit: 8,
@@ -181,6 +186,7 @@ export default {
             console.log(err);
           });
     },
+    //获取热门歌手
     getHotSinger() {
       getMethod("/artist/list", {
         type: -1,
@@ -196,6 +202,7 @@ export default {
             console.log(err);
           });
     },
+    //获取新碟上架
     getDisc() {
       getMethod("/album/new", {
         limit: 10,
@@ -210,6 +217,7 @@ export default {
             console.log(err);
           });
     },
+    //获取榜单推荐
     getRankList() {
       getMethod("/toplist")
           .then((res) => {
@@ -221,9 +229,10 @@ export default {
             console.log(err);
           });
     },
+    //获取榜单推荐的前10条歌曲
     getTenHotMusic() {
       for (let i = 0; i < this.rankList.length; i++) {
-        console.log(this.rankList[i].id);
+        console.log(i)
         getMethod("/playlist/detail", {
           id: this.rankList[i].id,
         })
@@ -236,6 +245,7 @@ export default {
             });
       }
     },
+    //获取热门主播
     getDj() {
       getMethod('/dj/toplist', {
         type: 'new',
@@ -261,9 +271,11 @@ export default {
     discNext() {
       this.$refs.disc_swiper.next();
     },
+    // 新碟id
     discId(query) {
       console.log(query);
     },
+    //事件监听 展示返回顶部按钮
     handleScroll() {
       let scrollY = document.documentElement.scrollTop;
       if (scrollY > 100) {
@@ -272,8 +284,35 @@ export default {
         this.backTop = false;
       }
     },
+    //路由跳转
     pushToRank() {
       this.$router.push("/rank");
+    },
+    //播放歌单
+    playList(musicList){
+      console.log(musicList);
+      //清空
+      this.play = [];
+      this.$store.commit('addMusic',this.play);
+      this.$store.commit('getMusicInfo',[]);
+      this.$store.commit('playTarget',0);
+      for (let i=0;i<musicList.length;i++){
+        getMethod('/song/url',{
+          id:musicList[i].id
+        }).then(res=>{
+          this.play.push(res.data.data[0].url);
+        }).catch(err=>{
+          console.log(err)
+        })
+      }
+      this.$store.commit('addMusic',this.play);
+      this.$store.commit('play');
+      this.$store.commit('getMusicInfo',musicList);
+      this.$store.commit('musicName');
+    },
+    indexChange(target){
+      this.$store.commit('playTarget',target);
+      this.$store.commit('musicName');
     },
   },
   mounted() {
@@ -493,7 +532,8 @@ export default {
   font-size: 20px;
   color: #c20c0c;
 }
-.music_per{
+
+.music_per {
   width: calc(100% - 40px);
   margin: 0 20px;
 }

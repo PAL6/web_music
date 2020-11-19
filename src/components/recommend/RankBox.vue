@@ -8,7 +8,7 @@
           </div>
           <div class="rank_info">
             <h6>{{ title }}</h6>
-            <van-icon name="play-circle-o" class="play_rank" />
+            <van-icon name="play-circle-o" class="play_rank" @click="playList" />
             <van-icon name="add-o" class="add" />
           </div>
         </div>
@@ -26,7 +26,7 @@
                 <span :class="index<3?'top':''" class="index">{{ index + 1 + "  " }}</span> <a href="#">{{ item.name }}</a>
               </div>
               <div class="btnBox" v-show="item.id === isShowBtn">
-                <van-icon name="play-circle-o" class="btn" />
+                <van-icon name="play-circle-o" class="btn" @click="printId(index)"/>
                 <van-icon name="add-o" class="btn" />
                 <van-icon name="hot-o" class="btn" />
               </div>
@@ -47,6 +47,7 @@ export default {
   data() {
     return {
       isShowBtn: 0,
+      play:[]
     };
   },
   props: {
@@ -114,6 +115,13 @@ export default {
     hideBtn() {
       this.isShowBtn = 0;
     },
+    printId(target){
+      this.$emit('index',target);
+    },
+    //播放整个歌单
+    playList(){
+      this.$emit('play');
+    }
   },
 };
 </script>

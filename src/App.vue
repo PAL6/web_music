@@ -9,12 +9,12 @@
         </div>
         <!--导航-->
         <div class="nav_bar">
-          <router-link to="/" active-class = "active" class = "tab">发现音乐</router-link>
-          <router-link to="/myMusic" active-class = "active" class = "tab">我的音乐</router-link>
-          <router-link to="/friend" active-class = "active" class = "tab">朋友</router-link>
-          <router-link to="/market" active-class = "active" class = "tab">商场</router-link>
-          <router-link to="/musician" active-class = "active" class = "tab">音乐人</router-link>
-          <router-link to="/downloadApp" active-class = "active" class = "tab">下载客户端</router-link>
+          <router-link to="/" active-class="active" class="tab">发现音乐</router-link>
+          <router-link to="/myMusic" active-class="active" class="tab">我的音乐</router-link>
+          <router-link to="/friend" active-class="active" class="tab">朋友</router-link>
+          <router-link to="/market" active-class="active" class="tab">商场</router-link>
+          <router-link to="/musician" active-class="active" class="tab">音乐人</router-link>
+          <router-link to="/downloadApp" active-class="active" class="tab">下载客户端</router-link>
         </div>
         <div class="search">
           <van-search
@@ -32,15 +32,24 @@
     </div>
     <router-view/>
     <Footer></Footer>
+    <div class="play_box" v-show="$store.state.isShowPlay">
+      <MusicPlay :play-list="$store.state.playList"
+                 :music-name="$store.state.musicName"
+                 :music-pic-url="$store.state.musicPic"
+                 :info-list="$store.state.musicInfo"></MusicPlay>
+    </div>
   </div>
 </template>
 
 <!--逻辑-->
 <script>
 import Footer from "@/components/Footer";
+import MusicPlay from "@/components/MusicPlay";
+
 export default {
-  components:{
-    Footer
+  components: {
+    Footer,
+    MusicPlay
   },
   data() {
     return {
@@ -115,12 +124,13 @@ export default {
 .active {
   background-color: black;
 }
-.query{
+
+.query {
   height: 70px;
   line-height: 70px;
 }
 
-.center{
+.center {
   height: 20px;
   line-height: 20px;
   margin-top: 20px;
@@ -130,15 +140,27 @@ export default {
   border: 1px solid #cccccc;
   border-radius: 8px;
 }
-.center:hover{
+
+.center:hover {
   color: white;
   border: 1px solid white;
 }
 
-.login{
+.login {
   color: #cccccc;
   margin-left: 20px;
   font-size: 14px;
+}
+
+.play_box {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  min-width: 1220px;
+  background-color: green;
+  width: 100%;
+  z-index: 99999;
 }
 
 </style>

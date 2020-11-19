@@ -5,7 +5,7 @@
       <div class="info">
         <van-icon name="audio" class="audio_icon"/>
         <span>{{ musicInfo.playCount|numberToString }}</span>
-        <van-icon name="play-circle" class="play"/>
+        <van-icon name="play-circle" class="play" @click="play"/>
       </div>
     </div>
     <a href="#" :title="musicInfo.name">
@@ -38,6 +38,11 @@ export default {
       }
     }
   },
+  methods:{
+    play(){
+      this.$store.commit('play');
+    }
+  }
 }
 </script>
 
