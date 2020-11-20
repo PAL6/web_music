@@ -13,7 +13,8 @@
           :url="menu[index].coverImgUrl"
           :title="menu[index].name"
           :update-text="menu[index].updateFrequency"
-          :update-time="menu[index].updateTime"></RankHeader>
+          :update-time="menu[index].updateTime"
+          @playRank="playRank"></RankHeader>
       <div class="title">
         <div>
           <h3>歌曲列表</h3>
@@ -23,9 +24,9 @@
       </div>
       <div class="musicList">
         <ul>
-          <li v-for="(item,index) in rankMusic">
+          <li v-for="(item,index) in rankMusic" :key="item.id">
             {{ index + 1 }}
-            <i class="el-icon-video-play playBtn"></i>
+            <i class="el-icon-video-play playBtn" @click="playTarget(index)"></i>
             <span class="musicName">{{ item.name }}</span>
             <span class="singer">{{ item.ar[0].name }}</span>
           </li>
@@ -39,6 +40,7 @@
 import RankHeader from "@/components/rank/RankHeader";
 import RankCard from "@/components/rank/RankCard";
 import {getMethod} from "@/api/http";
+import {playMusic,playTargetMusic} from "@/api/playMusic";
 
 export default {
   name: "Rank",
@@ -90,6 +92,10 @@ export default {
       this.getRankMusic();
       this.toTop();
     },
+    //播放榜单
+    playRank(){
+      playMusic(this.rankMusic)
+    },
     //返回顶部
     toTop() {
       let top = document.documentElement.scrollTop || document.body.scrollTop;
@@ -100,6 +106,12 @@ export default {
           clearInterval(timeTop);
         }
       }, 10);
+    },
+    playTarget(index){
+      console.log(this.rankMusic[index].id);
+      console.log(this.$store.state.playList[index])
+      console.log(this.$store.state.index)
+      playTargetMusic(index);
     }
   },
 }

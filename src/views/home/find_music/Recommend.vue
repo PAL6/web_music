@@ -68,7 +68,7 @@
                 :picUrl="item.coverImgUrl"
                 :hotTen="tenMusic[index]"
                 :key="item.name"
-                @play="playList(tenMusic[index])"
+                @play="playRem(tenMusic[index])"
                 @index="indexChange"
             />
           </div>
@@ -119,6 +119,7 @@
 
 <script>
 import {getMethod} from "@/api/http";
+import {playMusic,playTargetMusic} from "@/api/playMusic";
 import Title from "@/components/recommend/Title";
 import MusicCard from "@/components/home/MusicCard";
 import SingerCard from "@/components/recommend/SingerCard";
@@ -126,6 +127,7 @@ import NewDiscCard from "@/components/recommend/NewDiscCard";
 import DiscSwipeItem from "@/components/recommend/DiscSwipeItem";
 import RankBox from "@/components/recommend/RankBox";
 import DjCard from "@/components/recommend/DjCard";
+
 
 export default {
   name: "Recommend",
@@ -290,30 +292,11 @@ export default {
       this.$router.push("/rank");
     },
     //播放歌单
-    playList(musicList){
-      console.log(musicList);
-      //清空
-      this.play = [];
-      this.$store.commit('addMusic',this.play);
-      this.$store.commit('getMusicInfo',[]);
-      this.$store.commit('playTarget',0);
-      for (let i=0;i<musicList.length;i++){
-        getMethod('/song/url',{
-          id:musicList[i].id
-        }).then(res=>{
-          this.play.push(res.data.data[0].url);
-        }).catch(err=>{
-          console.log(err)
-        })
-      }
-      this.$store.commit('addMusic',this.play);
-      this.$store.commit('play');
-      this.$store.commit('getMusicInfo',musicList);
-      this.$store.commit('musicName');
+    playRem(remList){
+      playMusic(remList);
     },
     indexChange(target){
-      this.$store.commit('playTarget',target);
-      this.$store.commit('musicName');
+      playTargetMusic(target);
     },
   },
   mounted() {

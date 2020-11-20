@@ -18,7 +18,7 @@
       <van-icon name="arrow-left" class="preMusic" @click="pre"/>
       <van-icon name="arrow" class="nextMusic" @click="next"/>
       <audio
-          :src="playList[$store.state.index]"
+          :src="url"
           class="audio"
           controls
           autoplay
@@ -30,6 +30,9 @@
 </template>
 
 <script>
+
+import {nextMusic,preMusic} from "@/api/playMusic";
+
 export default {
   name: "AudioPlay",
   props: {
@@ -45,6 +48,10 @@ export default {
       type:Array,
       default:[]
     },
+    url:{
+      type:String,
+      default:''
+    },
     infoList:{
       type:Array,
       default:[]
@@ -59,21 +66,18 @@ export default {
   methods: {
     onEnd() {
       console.log('下一首');
-      this.$store.commit('next');
-      this.$store.commit('musicName');
+      nextMusic();
     },
     toggleMenu(){
       this.isShowMenu =! this.isShowMenu;
     },
     //下一首
     next(){
-      this.$store.commit('next');
-      this.$store.commit('musicName');
+      nextMusic();
     },
     //上一首
     pre(){
-      this.$store.commit('pre');
-      this.$store.commit('musicName');
+      preMusic();
     }
   },
 

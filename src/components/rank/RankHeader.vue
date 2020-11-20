@@ -6,7 +6,7 @@
        <span><i class="el-icon-s-help time"></i>最近更新: {{ updateTime|DateFormatMethod }}   ( {{ updateText }} )</span>
       <div class="btn_box"></div>
       <el-row>
-        <el-button type="primary" :plain="true" icon="el-icon-caret-right">播放</el-button>
+        <el-button type="primary" :plain="true" icon="el-icon-caret-right" @click="playRank">播放</el-button>
         <el-button type="info"  :plain="true" icon="el-icon-folder-add">{{ '( '+ addTime +' )' }}</el-button>
         <el-button type="info" :plain="true" icon="el-icon-share">{{ '( '+ shareTime +' )' }}</el-button>
         <el-button type="info" :plain="true" icon="el-icon-bottom">下载</el-button>
@@ -55,6 +55,11 @@ export default {
       let m = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
       let d = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
       return m + '月' + d + '日'
+    }
+  },
+  methods:{
+    playRank(){
+      this.$emit('playRank');
     }
   }
 }
