@@ -12,10 +12,10 @@ import 'vant/lib/index.css';
 Vue.use(Vant)
 
 //使用ElementUI库
-import {Button} from 'element-ui';
+import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
-Vue.use(Button)
+Vue.use(ElementUI)
 Vue.config.productionTip = false
 
 new Vue({
@@ -23,3 +23,16 @@ new Vue({
     store,
     render: h => h(App)
 }).$mount('#app')
+
+
+router.beforeEach((to,from,next)=>{
+    if (to.path==='/myMusic'){
+        if(!store.state.isLogin){
+            next('/unLogin');
+        }else {
+            next();
+        }
+    }else{
+        next();
+    }
+})

@@ -36,7 +36,7 @@ export function nextMusic(){
         store.commit('musicName');
         store.dispatch('getUrl',store.state.musicInfo[store.state.index].id);
     } else {
-        state.index = 0;
+        store.state.index = 0;
         store.commit('musicName');
         store.dispatch('getUrl',store.state.musicInfo[store.state.index].id);
     }
@@ -49,7 +49,7 @@ export function preMusic(){
        store.commit('musicName');
        store.dispatch('getUrl',store.state.musicInfo[store.state.index].id);
    } else {
-       state.index = store.state.musicInfo.length;
+       store.state.index = store.state.musicInfo.length;
        store.commit('musicName');
        store.dispatch('getUrl',store.state.musicInfo[store.state.index].id);
    }

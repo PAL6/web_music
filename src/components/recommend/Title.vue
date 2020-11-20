@@ -3,7 +3,7 @@
     <slot name = "icon"></slot>
     <span class="type">{{ title }}</span>
     <slot name="nav"></slot>
-    <div class="more">
+    <div class="more" v-show="showMore">
       <a href="#">更多</a>
       <van-icon name="other-pay" class="more_icon"/>
     </div>
@@ -17,6 +17,10 @@ export default {
     title: {
       type: String,
       default: '热门推荐'
+    },
+    showMore:{
+      type:Boolean,
+      default: true
     }
   }
 }

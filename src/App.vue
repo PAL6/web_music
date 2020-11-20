@@ -35,6 +35,7 @@
     <div class="play_box" v-show="$store.state.isShowPlay">
       <MusicPlay :play-list="$store.state.playList"
                  :url="$store.state.url"
+                 :author="$store.state.musicAuthor"
                  :music-name="$store.state.musicName"
                  :music-pic-url="$store.state.musicPic"
                  :info-list="$store.state.musicInfo"></MusicPlay>

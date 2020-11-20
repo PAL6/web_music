@@ -2,6 +2,7 @@
   <div class="audio_box">
     <div class="musicName">
       {{ musicName }}
+      <span class="author">{{ author }}</span>
     </div>
     <div class="play_box">
       <div class="music_list"  v-show="isShowMenu">
@@ -43,6 +44,10 @@ export default {
     musicName: {
       type: String,
       default: '歌名'
+    },
+    author: {
+      type: String,
+      default: '歌手'
     },
     playList:{
       type:Array,
@@ -91,7 +96,7 @@ export default {
   height: 80px;
   min-width: 1220px;
   margin: 0 auto;
-  background-color: #42b983;
+  background-color: rgb(53,53,53);
 }
 
 .play_box {
@@ -134,14 +139,20 @@ export default {
 
 .musicName {
   height: 30px;
-  width: 1070px;
-  padding-left: 150px;
-  background-color: aqua;
+  width: 1140px;
+  padding-left: 80px;
+  background-color: rgb(53,53,53);
   min-width: 1070px;
   margin: 0 auto;
   text-align: left;
-  color: purple;
+  color: whitesmoke;
   line-height: 30px;
+}
+
+.author{
+  font-size: 12px;
+  color: #8c8c8c;
+  margin-left: 30px;
 }
 
 .musicMenu {
@@ -150,15 +161,13 @@ export default {
 }
 
 .music_list {
-  padding-left: 20px;
   text-align: left;
   bottom: 50px;
   right: 0;
   height: 300px;
-  width: 180px;
+  width: 200px;
   background-color: salmon;
   position: absolute;
-  /*overflow: scroll;*/
 }
 .list{
   margin-top: 50px;
@@ -166,6 +175,7 @@ export default {
   overflow-y: scroll;
 }
 .music_list ul li{
+  padding-left: 20px;
   line-height: 30px;
   height: 30px;
   overflow: hidden;
@@ -180,6 +190,7 @@ export default {
   text-align: right;
 }
 .activeMusic{
+  color: white;
   background-color: #ed6a0c;
 }
 </style>

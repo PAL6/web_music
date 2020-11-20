@@ -12,7 +12,9 @@ export default new Vuex.Store({
         musicInfo: [],
         index: 0,
         musicName: '',
-        musicPic: ''
+        musicAuthor: '',
+        musicPic: '',
+        isLogin:false
     },
     mutations: {
         //显示播放组件并从第一首开始播放
@@ -34,6 +36,7 @@ export default new Vuex.Store({
         //获取歌名和封面
         musicName(state) {
             state.musicName = state.musicInfo[state.index].name;
+            state.musicAuthor = state.musicInfo[state.index].ar[0].name;
             state.musicPic = state.musicInfo[state.index].al.picUrl;
         },
         //下一首

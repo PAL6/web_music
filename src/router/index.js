@@ -18,6 +18,9 @@ const HostStation = () => import('../views/home/find_music/HostStation')
 const Singer = () => import('../views/home/find_music/Singer')
 const NewDisc = () => import('../views/home/find_music/NewDisc')
 
+//未登录页面
+const UnLogin = ()=> import('../views/UnLogin')
+
 const routes = [
     {
         path: '/',
@@ -60,7 +63,7 @@ const routes = [
     {
         path: '/myMusic',
         name: 'MyMusic',
-        component: MyMusic
+        component: MyMusic,
     },
     {
         path: '/friend',
@@ -82,6 +85,12 @@ const routes = [
         name: 'DownloadApp',
         component: DownloadApp
     },
+    {
+        path: '/unLogin',
+        name: 'UnLogin',
+        component:UnLogin,
+        linkExactActiveClass:"active"
+    }
 ]
 
 const router = new VueRouter({

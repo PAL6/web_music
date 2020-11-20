@@ -34,7 +34,9 @@
                 v-for="(item, index) in remList"
                 :key="item.id"
                 :music-info="item"
+                 @play="playHot"
                 :class="'not' + index"
+                class="card"
             ></MusicCard>
           </div>
           <Title title="新碟上架">
@@ -298,6 +300,9 @@ export default {
     indexChange(target){
       playTargetMusic(target);
     },
+    playHot(){
+      console.log('播放热门推荐')
+    }
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
@@ -397,6 +402,14 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
+.card{
+  margin-right: 20px;
+}
+
+.not3,
+.not7 {
+  margin-right: 0 !important;
+}
 
 .new_disc1 {
   overflow: hidden;
@@ -423,11 +436,6 @@ export default {
   top: 110px;
   cursor: pointer;
   z-index: 1000;
-}
-
-.not3,
-.not7 {
-  margin-right: 0 !important;
 }
 
 .right_box {

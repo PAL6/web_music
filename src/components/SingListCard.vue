@@ -1,7 +1,7 @@
 <template>
   <div class="music_card">
     <div class="pic">
-      <img :src="musicInfo.picUrl" alt="">
+      <img :src="musicInfo.coverImgUrl" alt="">
       <div class="info">
         <van-icon name="audio" class="audio_icon"/>
         <span>{{ musicInfo.playCount|numberToString }}</span>
@@ -11,20 +11,17 @@
     <a href="#" :title="musicInfo.name">
       <span>{{ musicInfo.name }}</span>
     </a>
+    <span class="tip">by<span class="author">{{musicInfo.creator.nickname}}</span></span>
   </div>
 </template>
 
 <script>
 export default {
-  name: "MusicCard",
+  name: "SingListCard",
   props: {
     musicInfo: {
       type: Object,
-      default: {
-        'playCount': 1000000,
-        'picUrl': 'https://p2.music.126.net/M_RLCjS-BY-zIquqig4DIg==/109951164893281259.jpg',
-        'name': '欧美小众丨解锁轻盈雾感格调深邃女声',
-      }
+      default: {}
     }
   },
   filters: {
@@ -40,7 +37,7 @@ export default {
   },
   methods:{
     play(){
-     this.$emit('play');
+      this.$emit('play');
     }
   }
 }
@@ -100,5 +97,21 @@ export default {
 .pic img {
   width: 100%;
   height: 140px;
+}
+.music_card a span{
+  display: block;
+  width: 155px;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+.tip{
+  font-size: 12px;
+  color: #999;
+}
+.author{
+  margin-left: 10px;
+  font-size: 12px;
+  color: #666;
 }
 </style>
